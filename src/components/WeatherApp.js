@@ -5,16 +5,18 @@ import { styles } from '../styles/styles';
 const WeatherApp = () => {
 
     const [cityName, setCityName] = useState(""); // Estado para armazenar o nome da cidade
+    const [cityQuery, setCityQuery] = useState(""); // Estado para armazenar a cidade consultada
     const [weatherData, setWeatherData] = useState(null);
     const [loading, setLoading] = useState(false); 
     const API_KEY = "a2f9cdc2498eebfc06947d967f787dd4"
-    const apiUrl = `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_KEY}&units=metric`;
-
+    
     const handleSearch = () => {
-        if(!cityName){
+        if(!cityName.trim()){
             alert("Digite o nome da cidade");
             return;
         }
+        setCityQuery(cityName);
+        const apiUrl = `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_KEY}&units=metric`;
         setLoading(true);
 
         fetch(apiUrl).then(response => {
@@ -50,7 +52,7 @@ const WeatherApp = () => {
                 )}
                 {weatherData && (
                 <View style={styles.weatherInfoContainer}>
-                    <Text style={styles.cityName}>{cityName}</Text>
+                    <Text style={styles.cityName}>{cityQuery}</Text>
                     <View style={styles.weatherDetails}>
                         <Text style={styles.temperature}>Temperatura</Text>
                         <Text style={styles.wind}>Vento</Text>
