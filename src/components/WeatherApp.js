@@ -24,7 +24,6 @@ const WeatherApp = () => {
             return response.json();
         }).then(data => {
             setWeatherData(data);
-            console.log(data);
         }).catch(error => {
             setWeatherData(null);
             setCityName("");
