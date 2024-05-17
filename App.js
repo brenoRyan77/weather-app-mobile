@@ -54,9 +54,9 @@ export default function App() {
       </View>
 
       <View style={styles.cardView}>
-        <MainCard title={'Manhã'}></MainCard>
-        <MainCard title={'Tarde'}></MainCard>
-        <MainCard title={'Noite'}></MainCard>
+        <MainCard title={'Manhã'} backgroundColor={ darkTheme ? '#ff873d' : '#cc6e30'} icon={'morning'} temperature={'25'}></MainCard>
+        <MainCard title={'Tarde'} backgroundColor={ darkTheme ? '#D29600' : '#FCC63F'} icon={'afternoon'} temperature={'29'}></MainCard>
+        <MainCard title={'Noite'} backgroundColor={ darkTheme ? '#008081' : '#38B7B8'} icon={'night'} temperature={'33'}></MainCard>
       </View>
     </View>
   );

@@ -2,12 +2,25 @@
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
 import { Feather } from '@expo/vector-icons';
+import { Fontisto } from '@expo/vector-icons';
 
 const MainCard = (props) => {
 
+    const Icon = () => {
+        if(props.icon === 'morning'){
+            return <Feather name="sun" style={styles.cardIcon} size={40} color="orange" />
+        }
+        if(props.icon === 'afternoon'){
+            return <Fontisto name="day-cloudy" style={styles.cardIcon} size={40} color="orange" />
+        }
+        if(props.icon === 'night'){
+            return <Fontisto name="night-clear" style={styles.cardIcon} size={40} color="orange" />
+        }
+    }
+
     const styles = StyleSheet.create({
         card:{
-            backgroundColor: '#393e46',
+            backgroundColor: props.backgroundColor,
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: 20,
@@ -24,13 +37,22 @@ const MainCard = (props) => {
           position: 'absolute',
           margin: 30,
           alignSelf: 'flex-start',
-        }
+        },
+        text: {
+            color: 'white',
+            fontSize: 20,
+            margin: 15,
+        },
+        cardIcon: {
+            color: 'white',
+            margin: 15,
+        },
       });
     return (
         <View style={styles.card}>
-            <Text style={styles.cardTitle}>{props.title}</Text>
-            <Feather name="sun" style={{marginTop: 55}} size={40} color="orange" />
-            <Text style={styles.temperatureText}>27℃</Text>
+            <Text style={styles.text}>{props.title}</Text>
+            <Icon />
+            <Text style={styles.text}>{props.temperature}°</Text>
         </View>
     );
 }
