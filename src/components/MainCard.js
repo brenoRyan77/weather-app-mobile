@@ -8,13 +8,13 @@ const MainCard = (props) => {
 
     const Icon = () => {
         if(props.icon === 'morning'){
-            return <Feather name="sun" style={styles.cardIcon} size={40} color="orange" />
+            return <Feather name="sun" style={styles.cardIcon} size={40} color="white" />
         }
         if(props.icon === 'afternoon'){
-            return <Fontisto name="day-cloudy" style={styles.cardIcon} size={40} color="orange" />
+            return <Fontisto name="day-cloudy" style={styles.cardIcon} size={40} color="white" />
         }
         if(props.icon === 'night'){
-            return <Fontisto name="night-clear" style={styles.cardIcon} size={40} color="orange" />
+            return <Fontisto name="night-clear" style={styles.cardIcon} size={40} color="white" />
         }
     }
 
