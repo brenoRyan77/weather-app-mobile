@@ -1,10 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Feather } from '@expo/vector-icons';
 import { EvilIcons } from '@expo/vector-icons';
 import MainCard from './src/components/MainCard';
 import InfoCard from './src/components/InfoCard';
+import * as Location from 'expo-location';
+import getCurrentWeather from './src/api/WeatherApi';
 
 export default function App() {
 
@@ -16,6 +18,7 @@ export default function App() {
   const [humidity, setHumidity] = useState('60')
   const [temperatureMax, setTemperatureMax] = useState('33')
   const [temperatureMin, setTemperatureMin] = useState('25')
+  const [locationConcord, setLocationConcord] = useState([])	
 
   const styles = StyleSheet.create({
     container: {
@@ -90,10 +93,43 @@ export default function App() {
     },
   });
 
+  async function setCurrentWeather(){
+    await getLocation()
+    let date = new Date()
+    setCurrentHour(date.getHours() + ':' + date.getMinutes())
+    const data = await getCurrentWeather(locationConcord)
+    setCurrentTemperature(convertKelvinInCelsius(data[0]))
+    setTemperatureMin(convertKelvinInCelsius(data[1]))
+    setTemperatureMax(convertKelvinInCelsius(data[2]))
+    setLocation(data[3])
+    setWind(data[4])
+    setHumidity(data[5])
+  }
+
+  function convertKelvinInCelsius(kelvin){
+    return parseInt(kelvin - 273.15)
+  }
+
+  async function getLocation(){
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if(status !== 'granted'){
+      setErroMsg('Permission to access location was denied');
+      return
+    }
+
+    let location = await Location.getCurrentPositionAsync({});
+    setLocationConcord(location.coords);
+  }
+
+  //results = [currentTemperature, temperatureMin, temperatureMax, locationName, wind, humidity]
+  useEffect(() =>{
+    setCurrentWeather()
+  }, [])
+
   
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={[styles.refreshButton, { marginTop: 50}]}>
+      <TouchableOpacity onPress={() => setCurrentWeather()} style={[styles.refreshButton, { marginTop: 50}]}>
         <EvilIcons name="refresh" size={30} color={darkTheme ? 'white' : 'black'} />
       </TouchableOpacity>
 
@@ -115,7 +151,7 @@ export default function App() {
         <Text style={styles.infoText}>Informações Adicionais</Text>
         <View style={styles.infoCard}>
           <InfoCard title={'Vento'} value={wind + ' km/h'}></InfoCard>
-          <InfoCard title={'Humidade'} value={humidity + '%'}></InfoCard>
+          <InfoCard title={'Umidade'} value={humidity + '%'}></InfoCard>
           <InfoCard title={'Temp. Max'} value={temperatureMax + '°'}></InfoCard>
           <InfoCard title={'Temp. Min'} value={temperatureMin + '°'}></InfoCard>
         </View>
