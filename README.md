@@ -32,13 +32,13 @@ Siga o passo a passo para instalar e rodar o projeto na sua máquina.
 - Após a imagem "weatherapp" ser criada, execute este comando:
 
 ```bash
-  docker run -p 19006:19006 -p 19001:19001 -p 19002:19002 weatherapp web
+  docker run -p 8085:8081 weatherapp web
 ```
 
 - Acesse o aplicativo localmente nesse endereço:
 
 ```bash
-  http://localhost:19006
+  http://localhost:8085
 ```
 ## Como usar (sem Docker)
 
