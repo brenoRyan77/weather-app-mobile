@@ -6,10 +6,8 @@
 
 ## Funcionalidades
 
-- Pesquisa de cidades.
-- Exibição do clima e temperatura atuais.
-- Previsção do tempo para as próximas horas.
-- Exibição da velocidade do vendo.
+- Exibição do clima e temperatura baseado na localização do dispositivo.
+- Exibição da velocidade do vendo e umidade, temperatura máxima e miníma.
 - Possibilidade de alternar entre os temas Dark e Light.
 
 
